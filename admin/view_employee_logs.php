@@ -49,20 +49,20 @@ $objid = $objid1 = $masname1 = $person_status =  $entity_no  =  $address  =
 //   $db_fullname = $result['fullname'];
 // }
 
-$emp_id = $_GET['emp_id'];
+$emp_id2 = $_GET['emp_id'];
 
 
 
 
 $get_employee_sql = "SELECT * FROM tbl_employee_info where emp_id = :emp_id";
 $get_employee_data = $con->prepare($get_employee_sql);
-$get_employee_data->execute([':emp_id' => $emp_id]);
+$get_employee_data->execute([':emp_id' => $emp_id2]);
 
 while ($result = $get_employee_data->fetch(PDO::FETCH_ASSOC)) {
 
-  $emp_id = $result['emp_id'];
-  $fullname = $result['fullname'];
-  $address = $result['address'];
+  $emp_id_new = $result['emp_id'];
+  $fullname_new = $result['fullname'];
+  $address_new = $result['address'];
 }
 
 // $get_all_preby_sql = "SELECT * FROM preparedby";
@@ -142,10 +142,10 @@ while ($result = $get_employee_data->fetch(PDO::FETCH_ASSOC)) {
               <div class="tab-pane fade show active" id="nav-daily" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="card">
                   <div class="card-header  text-white bg-dark">
-                    <h5>Emp ID: <?php echo $emp_id; ?>
-                      <input hidden id="emp_id" value="<?php echo $emp_id; ?>">
+                    <h5>Emp ID: <?php echo $emp_id_new; ?>
+                      <input hidden id="emp_id_new" value="<?php echo $emp_id_new; ?>">
 
-                      <br> NAME: <?php echo $fullname; ?> <br> ADDRESS: <?php echo $address; ?>
+                      <br> NAME: <?php echo $fullname_new; ?> <br> ADDRESS: <?php echo $address_new; ?>
                       <a class="btn btn-danger btn-sm" style="float:right;" target="blank" id="printlink" class="btn btn-success bg-gradient-success" href="../plugins/jasperreport/dailypayment.php?objid=<?php echo $objid; ?>&masname=<?php echo $masname1; ?>&street=<?php echo $street1; ?>&barangay1=<?php echo $barangay1; ?>&preparedby=<?php echo $preparedby; ?>&position=<?php echo $position; ?>&datefrom=<?php echo $date_from; ?>&dateto=<?php echo $date_to; ?>">
                         <i class="nav-icon fa fa-print"></i></a>
                     </h5>
@@ -479,7 +479,7 @@ while ($result = $get_employee_data->fetch(PDO::FETCH_ASSOC)) {
 
     function viewdailylogs() {
       event.preventDefault();
-      var emp_id = $('#emp_id').val();
+      var emp_id = $('#emp_id_new').val();
 
 
       $('#daily_logs').load("load_dailylogs.php", {
